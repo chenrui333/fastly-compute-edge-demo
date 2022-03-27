@@ -25,9 +25,16 @@ resource "fastly_service_compute" "fastly_compute_edge_demo" {
   }
 
   package {
+    # `fastly-compute-edge-demo.tar.gz` is built by `fastly compute build`
     filename         = "pkg/fastly-compute-edge-demo.tar.gz"
     source_code_hash = filesha512("pkg/fastly-compute-edge-demo.tar.gz")
   }
 
   force_destroy = true
+
+  lifecycle {
+    ignore_changes = [
+      package,
+    ]
+  }
 }
