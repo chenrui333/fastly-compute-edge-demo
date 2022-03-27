@@ -1,15 +1,7 @@
-//! Default Compute@Edge template program.
-
 use fastly::http::{header, Method, StatusCode};
 use fastly::{mime, Error, Request, Response};
 
-/// The entry point for your application.
-///
-/// This function is triggered when your service receives a client request. It could be used to
-/// route based on the request properties (such as method or path), send the request to a backend,
-/// make completely new requests, and/or generate synthetic responses.
-///
-/// If `main` returns an error, a 500 error response will be delivered to the client.
+const HTTPBIN: &str = "httpbin";
 
 #[fastly::main]
 fn main(req: Request) -> Result<Response, Error> {
@@ -66,8 +58,7 @@ fn main(req: Request) -> Result<Response, Error> {
                 .with_body("pong from fastly-compute-edge-demo"))
         }
 
-        // Catch all other requests and return a 404.
-        _ => Ok(Response::from_status(StatusCode::NOT_FOUND)
-            .with_body_text_plain("The page you requested could not be found\n")),
+        // Route wildcard path to httpbin backend
+        _ => Ok(req.send(HTTPBIN)?),
     }
 }
