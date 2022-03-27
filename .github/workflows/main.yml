@@ -39,6 +39,16 @@ jobs:
       - uses: hashicorp/setup-terraform@v1.3.2
         with:
           terraform_version: 1.1.7
+
+      - name: Wait for Previous Deployment
+        uses: softprops/turnstyle@master
+        timeout-minutes: 10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # checks the workflows runs across branches
+          same-branch-only: false
+
       - name: Run terraform init
         run: |
           terraform init -input=false -no-color
