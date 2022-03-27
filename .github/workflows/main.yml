@@ -1,7 +1,28 @@
 name: main
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: 1.54.0 # current Rust toolchain for Compute@Edge
+            target: wasm32-wasi # WebAssembly target
+
+      - name: Set up Fastly CLI
+        uses: fastly/compute-actions/setup@da4f7b0e63d8963d5de811a8ec799f265b3a25aa
+
+      - name: build and deploy
+        if: github.ref == 'refs/heads/master'
+        run: |
+          fastly compute build
+          fastly compute deploy
+        env:
+          FASTLY_API_TOKEN: ${{ secrets.FASTLY_API_TOKEN }}
