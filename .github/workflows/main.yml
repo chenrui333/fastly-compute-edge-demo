@@ -31,11 +31,6 @@ jobs:
           fastly compute build
           fastly compute deploy
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1.3.2
         with:
           terraform_version: 1.1.7
