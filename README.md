@@ -4,6 +4,7 @@
 
 - [build/publish](#buildpublish)
 - [testing](#testing)
+- [references](#references)
 
 ## build/publish
 
@@ -22,3 +23,9 @@ content-type: text/html; charset=utf-8
 x-served-by: cache-ewr18160-EWR
 date: Sun, 27 Mar 2022 05:07:42 GMT
 ```
+
+## references
+
+https://github.com/fastly/compute-starter-kit-rust-default
+https://github.com/fastly/compute-rust-auth
+https://github.com/fastly/compute-starter-kit-rust-static-content
