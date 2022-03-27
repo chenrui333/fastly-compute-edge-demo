@@ -20,7 +20,7 @@ jobs:
         uses: fastly/compute-actions/setup@da4f7b0e63d8963d5de811a8ec799f265b3a25aa
 
       - name: build and deploy
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: |
           fastly compute build
           fastly compute deploy

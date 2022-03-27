@@ -1,5 +1,7 @@
 # fastly-compute-edge-demo <!-- omit in toc -->
 
+[![main](https://github.com/chenrui333/fastly-compute-edge-demo/actions/workflows/main.yml/badge.svg)](https://github.com/chenrui333/fastly-compute-edge-demo/actions/workflows/main.yml)
+
 - [build/publish](#buildpublish)
 - [testing](#testing)
 
