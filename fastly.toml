@@ -6,4 +6,4 @@ description = "fastly-compute-edge-demo, https://github.com/chenrui333/fastly-co
 language = "rust"
 manifest_version = 2
 name = "fastly-compute-edge-demo"
-service_id = "6LUX1QkuRRvnISxY4RCYXw"
+service_id = "3P8d99kmQc6GK2lpLPvtmk"
