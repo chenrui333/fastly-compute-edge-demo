@@ -14,6 +14,7 @@ The goal for this repo is to showcase the fastly-compute-edge workflow:
 - [testing](#testing)
 - [local testing](#local-testing)
 - [references](#references)
+  - [template repos](#template-repos)
 
 ## build/publish
 
@@ -55,6 +56,10 @@ HTTP/1.1 500 Internal Server Error
 
 ## references
 
-https://github.com/fastly/compute-starter-kit-rust-default
-https://github.com/fastly/compute-rust-auth
-https://github.com/fastly/compute-starter-kit-rust-static-content
+### template repos
+
+- [fastly/compute-starter-kit-rust-default](https://github.com/fastly/compute-starter-kit-rust-default)
+- [fastly/compute-rust-auth](https://github.com/fastly/compute-rust-auth)
+- [fastly/compute-starter-kit-rust-beacon-termination](https://github.com/fastly/compute-starter-kit-rust-beacon-termination)
+- [fastly/compute-starter-kit-rust-empty](https://github.com/fastly/compute-starter-kit-rust-empty)
+- [fastly/compute-starter-kit-rust-static-content](https://github.com/fastly/compute-starter-kit-rust-static-content)
