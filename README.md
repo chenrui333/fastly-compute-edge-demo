@@ -2,6 +2,13 @@
 
 [![main](https://github.com/chenrui333/fastly-compute-edge-demo/actions/workflows/main.yml/badge.svg)](https://github.com/chenrui333/fastly-compute-edge-demo/actions/workflows/main.yml)
 
+The goal for this repo is to showcase the fastly-compute-edge workflow:
+
+- Minimal skeleton template which has httpbin backend
+- Include fastly commands to demo the build/deploy as well as local testing
+- CI/CD pipeline for build/deploy compute@edge package
+- CI/CD pipeline for build/deploy terraform service
+
 - [build/publish](#buildpublish)
 - [add backend](#add-backend)
 - [testing](#testing)
