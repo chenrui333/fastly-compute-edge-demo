@@ -1,0 +1,9 @@
+# This file describes a Fastly Compute@Edge package. To learn more visit:
+# https://developer.fastly.com/reference/fastly-toml/
+
+authors = ["rui@chenrui.dev"]
+description = "fastly-compute-edge-demo, https://github.com/chenrui333/fastly-compute-edge-demo"
+language = "rust"
+manifest_version = 2
+name = "fastly-compute-edge-demo"
+service_id = "6LUX1QkuRRvnISxY4RCYXw"
