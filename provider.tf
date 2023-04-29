@@ -4,7 +4,7 @@ terraform {
   required_providers {
     fastly = {
       source  = "fastly/fastly"
-      version = "~> 1"
+      version = ">= 1"
     }
   }
 }
