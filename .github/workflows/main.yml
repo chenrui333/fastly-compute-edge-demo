@@ -16,6 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Wait for Previous Deployment
+        uses: softprops/turnstyle@master
+        timeout-minutes: 10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # checks the workflows runs across branches
+          same-branch-only: false
+
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
