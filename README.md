@@ -1,6 +1,7 @@
 # fastly-compute-edge-demo <!-- omit in toc -->
 
 [![main](https://github.com/chenrui333/fastly-compute-edge-demo/actions/workflows/main.yml/badge.svg)](https://github.com/chenrui333/fastly-compute-edge-demo/actions/workflows/main.yml)
+[![hurl](https://github.com/chenrui333/fastly-compute-edge-demo/actions/workflows/hurl.yml/badge.svg)](https://github.com/chenrui333/fastly-compute-edge-demo/actions/workflows/hurl.yml)
 
 The goal for this repo is to showcase the fastly-compute-edge workflow:
 

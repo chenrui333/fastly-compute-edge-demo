@@ -1,6 +1,10 @@
 GET https://fastly-compute-edge-demo.edgecompute.app
 
 HTTP/2 200
+
+[Asserts]
+header "Content-Type" == "text/html; charset=utf-8"
+
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +23,3 @@ HTTP/2 200
   </body>
 </html>
 ```
-
-[Asserts]
-header "Content-Type" == "text/html; charset=utf-8"
