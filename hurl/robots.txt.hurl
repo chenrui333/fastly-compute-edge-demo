@@ -5,5 +5,5 @@ HTTP/2 200
 
 ```
 User-agent: *
-Disallow: /deny
+Disallow: /
 ```

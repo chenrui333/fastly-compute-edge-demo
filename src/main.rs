@@ -63,6 +63,10 @@ fn main(req: Request) -> Result<Response, Error> {
         }
     };
 
+    let robots_response = r#"User-agent: *
+Disallow: /
+"#;
+
     // Pattern match on the path...
     match req.get_path() {
         "/" => {
@@ -74,9 +78,12 @@ fn main(req: Request) -> Result<Response, Error> {
 
         "/ping" => Ok(Response::from_status(StatusCode::OK)
             .with_content_type(mime::TEXT_HTML_UTF_8)
-            .with_body("pong from fastly-compute-edge-demo")),
+            .with_body("pong from fastly-compute-edge-demo"))
+            .with_header(header::CACHE_CONTROL, "public, max-age=31536000")),
 
-        "/robots.txt" => Ok(Response::from_body("User-agent: *\nDisallow: /")),
+        "/robots.txt" => Ok(Response::from_body(robots_response)
+            .with_content_type(mime::TEXT_PLAIN_UTF_8)
+            .with_header(header::CACHE_CONTROL, "public, max-age=31536000")),
 
         // Route wildcard path to httpbin backend
         _ => Ok(req.send(HTTPBIN)?),
