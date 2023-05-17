@@ -1,4 +1,5 @@
 GET https://fastly-compute-edge-demo.edgecompute.app
+User-Agent: hurl
 
 HTTP/2 200
 

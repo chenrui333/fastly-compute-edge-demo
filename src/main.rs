@@ -1,37 +1,52 @@
-use std::net::IpAddr;
 use fastly::http::{header, Method, StatusCode};
 use fastly::{mime, Error, Request, Response};
 use ipnetwork::IpNetwork;
+use std::net::IpAddr;
 
 const HTTPBIN: &str = "httpbin";
 
 fn is_ip_in_cidr(ip: IpAddr, cidr: IpNetwork) -> bool {
-  cidr.contains(ip)
+    cidr.contains(ip)
 }
 
-fn is_allowed(ip: IpAddr) -> bool {
-  let cidrs: Vec<&str> = vec![
-    "52.119.64.2/32" // hq 4.0 ip
-  ]; // Allowlist of CIDR blocks
-  let allowlist: Vec<IpNetwork> = cidrs.iter().map(|&cidr| cidr.parse().unwrap()).collect();
-  allowlist.iter().any(|&cidr| is_ip_in_cidr(ip, cidr))
+fn is_allowed(ip: IpAddr, user_agent: &str) -> bool {
+    let cidrs: Vec<&str> = vec![
+        "52.119.64.2/32", // hq 4.0 ip
+    ]; // Allowlist of CIDR blocks
+    let allowlist: Vec<IpNetwork> = cidrs.iter().map(|&cidr| cidr.parse().unwrap()).collect();
+
+    let user_agents: Vec<&str> = vec!["hurl"]; // Allowlist of User-Agents
+
+    let ip_allowed = allowlist.iter().any(|&cidr| is_ip_in_cidr(ip, cidr));
+    let user_agent_allowed = user_agents.contains(&user_agent);
+
+    ip_allowed || user_agent_allowed
 }
 
 #[fastly::main]
 fn main(req: Request) -> Result<Response, Error> {
-    match req.get_client_ip_addr() {
-        Some(ip) => {
-            if is_allowed(ip) {
-                println!("client ip: {} is allowed", ip);
+    // Log service version
+    println!(
+        "FASTLY_SERVICE_VERSION: {}",
+        std::env::var("FASTLY_SERVICE_VERSION").unwrap_or_else(|_| String::new())
+    );
+
+    match (req.get_client_ip_addr(), req.get_header_str("User-Agent")) {
+        (Some(ip), Some(user_agent)) => {
+            if is_allowed(ip, user_agent) {
+                println!("The IP and User-Agent are in the allowlist");
             } else {
-                println!("client ip: {} is not allowed", ip);
+                println!("The IP or User-Agent are not in the allowlist");
                 return Ok(Response::from_status(StatusCode::FORBIDDEN)
                     .with_content_type(mime::TEXT_HTML_UTF_8)
-                    .with_body(format!("Forbidden, your ip is {}", ip)));
+                    .with_body_text_plain("You are not allowed to access this resource\n"));
             }
         }
-        None => {
-            println!("no client ip");
+        _ => {
+            // return the response
+            return Ok(Response::from_status(StatusCode::BAD_REQUEST)
+                .with_content_type(mime::TEXT_HTML_UTF_8)
+                .with_body_text_plain(""));
         }
     }
 
