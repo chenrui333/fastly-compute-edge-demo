@@ -78,7 +78,7 @@ Disallow: /
 
         "/ping" => Ok(Response::from_status(StatusCode::OK)
             .with_content_type(mime::TEXT_HTML_UTF_8)
-            .with_body("pong from fastly-compute-edge-demo"))
+            .with_body("pong from fastly-compute-edge-demo")
             .with_header(header::CACHE_CONTROL, "public, max-age=31536000")),
 
         "/robots.txt" => Ok(Response::from_body(robots_response)
