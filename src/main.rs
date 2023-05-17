@@ -76,6 +76,8 @@ fn main(req: Request) -> Result<Response, Error> {
             .with_content_type(mime::TEXT_HTML_UTF_8)
             .with_body("pong from fastly-compute-edge-demo")),
 
+        "/robots.txt" => Ok(Response::from_body("User-agent: *\nDisallow: /")),
+
         // Route wildcard path to httpbin backend
         _ => Ok(req.send(HTTPBIN)?),
     }
