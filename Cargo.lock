@@ -82,6 +82,7 @@ name = "fastly-compute-edge-demo"
 version = "0.1.0"
 dependencies = [
  "fastly",
+ "ipnetwork",
 ]
 
 [[package]]
@@ -160,6 +161,15 @@ checksum = "e14ddfc70884202db2244c223200c204c2bda1bc6e0998d11b5e024d657209e6"
 dependencies = [
  "unicode-bidi",
  "unicode-normalization",
+]
+
+[[package]]
+name = "ipnetwork"
+version = "0.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bf466541e9d546596ee94f9f69590f89473455f88372423e0008fc1a7daf100e"
+dependencies = [
+ "serde",
 ]
 
 [[package]]
