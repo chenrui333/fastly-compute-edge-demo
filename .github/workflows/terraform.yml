@@ -1,0 +1,76 @@
+name: terraform
+
+on:
+  push:
+    paths-ignore:
+      - '**/*.md'
+      - 'hurl/**'
+      - '.github/workflows/main.yml'
+    branches:
+      - main
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - 'hurl/**'
+      - '.github/workflows/main.yml'
+    branches:
+      - main
+
+env:
+  FASTLY_KEY:            ${{ secrets.FASTLY_KEY }}
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Wait for Previous Deployment
+        uses: softprops/turnstyle@master
+        timeout-minutes: 10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # checks the workflows runs across branches
+          same-branch-only: false
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.6
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `<details><summary>Terraform (init: ${{ steps.init.outcome }}, plan: ${{ steps.plan.outcome }})</summary>
+
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
+            \`\`\`${process.env.PLAN}\`\`\`
+
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*
+
+            </details>`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Run terraform init
+        id: init
+        run: terraform init -input=false -no-color
+
+      - name: Run terraform plan
+        id: plan
+        run: terraform plan -input=false -refresh -no-color
+
+      # - name: Run terraform apply
+      #   if: github.ref == 'refs/heads/main'
+      #   run: terraform apply -no-color -auto-approve
