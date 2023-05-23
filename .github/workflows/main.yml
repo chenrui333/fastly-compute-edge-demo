@@ -46,8 +46,11 @@ jobs:
       - name: Set up Fastly CLI
         uses: fastly/compute-actions/setup@b9d14a5b0371ab6c2640a59f05353b2bda4eed74
 
-      - name: build and deploy
+      - name: build
+        if: github.event_name == 'pull_request'
+        run: fastly compute build
+
+      - name: publish (build and deploy)
         if: github.ref == 'refs/heads/main'
         run: |
-          fastly compute build
-          fastly compute deploy
+          fastly compute publish
