@@ -1,3 +1,7 @@
+data "fastly_package_hash" "demo" {
+  filename = "pkg/fastly-compute-edge-demo.tar.gz"
+}
+
 resource "fastly_service_compute" "fastly_compute_edge_demo" {
   name    = "fastly-compute-edge-demo"
   comment = "Managed by chenrui333/fastly-compute-edge-demo repo"
@@ -27,14 +31,8 @@ resource "fastly_service_compute" "fastly_compute_edge_demo" {
   package {
     # `fastly-compute-edge-demo.tar.gz` is built by `fastly compute build`
     filename         = "pkg/fastly-compute-edge-demo.tar.gz"
-    source_code_hash = filesha512("pkg/fastly-compute-edge-demo.tar.gz")
+    source_code_hash = data.fastly_package_hash.demo.hash
   }
 
   force_destroy = true
-
-  lifecycle {
-    ignore_changes = [
-      package,
-    ]
-  }
 }
