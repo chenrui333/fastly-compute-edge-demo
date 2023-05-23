@@ -2,7 +2,19 @@ name: main
 
 on:
   push:
+    paths-ignore:
+      - '**/*.md'
+      - 'hurl/**'
+      - '.github/workflows/main.yml'
+    branches:
+      - main
   pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - 'hurl/**'
+      - '.github/workflows/main.yml'
+    branches:
+      - main
 
 env:
   # for fastly cli
