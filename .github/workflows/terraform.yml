@@ -17,7 +17,7 @@ on:
       - main
 
 env:
-  FASTLY_KEY:            ${{ secrets.FASTLY_KEY }}
+  FASTLY_API_KEY:        ${{ secrets.FASTLY_API_KEY }}
 
 jobs:
   terraform:
