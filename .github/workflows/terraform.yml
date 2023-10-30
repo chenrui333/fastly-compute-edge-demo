@@ -34,7 +34,7 @@ jobs:
           # checks the workflows runs across branches
           same-branch-only: false
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.4.6
 
