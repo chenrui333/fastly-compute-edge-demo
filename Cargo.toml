@@ -1,5 +1,5 @@
 [dependencies]
-fastly = "^0.9.7"
+fastly = "^0.9.11"
 ipnetwork = "0.20.0"
 
 [package]
