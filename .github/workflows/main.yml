@@ -18,7 +18,7 @@ on:
 
 env:
   # for fastly cli
-  FASTLY_API_TOKEN:      ${{ secrets.FASTLY_API_TOKEN }}
+  FASTLY_API_TOKEN:      ${{ secrets.FASTLY_API_KEY }}
   # for terraform provider
   FASTLY_API_KEY:        ${{ secrets.FASTLY_API_KEY }}
 
