@@ -44,7 +44,7 @@ jobs:
             target: wasm32-wasi # WebAssembly target
 
       - name: Set up Fastly CLI
-        uses: fastly/compute-actions/setup@d811a690308a79ebdcadf968999f2b194c1858f6
+        uses: fastly/compute-actions/setup@738ba749cba872df127dd08dfe1d7ef774af1f67
 
       - name: build
         if: github.event_name == 'pull_request'
