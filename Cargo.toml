@@ -1,6 +1,6 @@
 [dependencies]
 fastly = "^0.9.7"
-ipnetwork = "0.20.0"
+ipnetwork = "0.21.0"
 
 [package]
 authors = []
